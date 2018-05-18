@@ -1,6 +1,7 @@
+# -*- coding:utf-8 -*-
+
 import os
 
-import pygame
 from PIL import Image, ImageDraw, ImageFont
 from flask import render_template, request, redirect, url_for, abort
 
@@ -12,7 +13,7 @@ outfile = r"E:/flask_grey/"
 
 @app.route('/')
 def hello_world():
-    return render_template('pic_upload.html')
+    return render_template('pic/pic_upload.html')
 
 
 @app.route('/upload', methods=['POST'])
@@ -37,15 +38,15 @@ def upload():
         asc_im.save(outfile + filename)
 
         return redirect(url_for('show', name=filename))
-    return render_template('pic_upload.html')
+    return render_template('pic/pic_upload.html')
 
 
 @app.route('/pic/<name>')
-def show(name,txt):
+def show(name, txt):
     if name is None:
         abort(404)
     url = photos.url(name)
-    return render_template('pic_show.html', **locals())
+    return render_template('pic/pic_show.html', **locals())
 
 
 def get_char(r, g, b, alpha=256):
